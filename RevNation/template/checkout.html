@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image" href="{% static 'logo.png' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proceed to Checkout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+        }
+
+        .checkout-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px white;
+        }
+        img{
+            width: 150px;
+            height: 150px;
+        }
+
+        .form-control {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+            border: 1px solid white;
+        }
+
+        .form-control:focus {
+            border-color: darkwhite;
+            box-shadow: 0 0 5px darkwhite;
+        }
+
+        .cart-item {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid white;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-success {
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border: 1px solid white;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            background: darkwhite;
+        }
+
+        .product-details img {
+            max-width: 100px;
+            border-radius: 10px;
+        }
+
+        .order-summary {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 15px;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="checkout-container">
+            <h2 class="checkout-header"><i class="fas fa-shopping-cart"></i> Proceed to Checkout</h2>
+            <form action="{% url 'confirmorder' tprice %}" method="post">
+                {% csrf_token %}
+                
+                <!-- User Details -->
+                <h4 class="checkout-header"><i class="fa-solid fa-user"></i> User Details</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="firstName" value="{{cust.FirstName}}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" value="{{cust.LastName}}" name="lname">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" value="{{cust.EmailId}}" name="emailId">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" value="{{cust.PhoneNo}}" name="phoneNo">
+                    </div>
+                </div>
+<br>
+                <!-- Address Details -->
+                <h4 class="checkout-header"><i class="fa-solid fa-address-card"></i> Address Details</h4>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Street Address</label>
+                        <input type="text" class="form-control" value="{{cust.StreetAddress}}" name="StreetAddress">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" value="{{cust.City}}" name="city">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" value="{{cust.State}}" name="state">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Country</label>
+                        <input type="text" class="form-control" value="{{cust.Country}}" name="Country">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">PinCode</label>
+                        <input type="text" class="form-control" value="{{cust.PinCode}}" name="pincode">
+                    </div>
+                </div>
+                <hr>
+                <h4 class="checkout-header"><i class="fa-solid fa-list"></i> Order Summary</h4>
+                {% for item in cart_items %}
+                <div class="cart-item mb-3">
+                    <div class="me-3">
+                        {% if item.helmet and item.helmet.image %}
+                        <img src="{{ item.helmet.image.url }}" class="img-fluid rounded" alt="Helmet">
+                        {% elif item.jacket and item.jacket.image %}
+                        <img src="{{ item.jacket.image.url }}" class="img-fluid rounded" alt="Jacket">
+                        {% elif item.gloves and item.gloves.image %}
+                        <img src="{{ item.gloves.image.url }}" class="img-fluid rounded" alt="Gloves">
+                        {% elif item.boots and item.boots.image %}
+                        <img src="{{ item.boots.image.url }}" class="img-fluid rounded" alt="Boots">
+                        {% elif item.kneeguard and item.kneeguard.image %}
+                        <img src="{{ item.kneeguard.image.url }}" class="img-fluid rounded" alt="Knee Guard">
+                        {% elif item.ridingPants and item.ridingPants.image %}
+                        <img src="{{ item.ridingPants.image.url }}" class="img-fluid rounded" alt="Riding Pants">
+                        {% endif %}
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5> Name :-
+                            {% if item.helmet %} {{ item.helmet.name }}
+                            {% elif item.jacket %} {{ item.jacket.name }}
+                            {% elif item.gloves %} {{ item.gloves.name }}
+                            {% elif item.boots %} {{ item.boots.name }}
+                            {% elif item.kneeguard %} {{ item.kneeguard.name }}
+                            {% elif item.ridingPants %} {{ item.ridingPants.name }}
+                            {% endif %}
+                        </h5><h5 class="quantity">Quantity:- {{ item.quantity }}</h5>
+                        <h5 class="price">Price :- 
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                            {% if item.helmet %} {{ item.helmet.price }}
+                            {% elif item.jacket %} {{ item.jacket.price }}
+                            {% elif item.gloves %} {{ item.gloves.price }}
+                            {% elif item.boots %} {{ item.boots.price }}
+                            {% elif item.kneeguard %} {{ item.kneeguard.price }}
+                            {% elif item.ridingPants %} {{ item.ridingPants.price }}
+                            {% endif %}
+                        </h5>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">Your cart is empty.</p>
+                {% endfor %}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom"><i class="fas fa-check-circle"></i> Complete Purchase ( {{tprice}} )</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</body>
+
+</html>

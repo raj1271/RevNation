@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed Successfully</title>
+    <script src="https://kit.fontawesome.com/48b561d95d.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!DOCTYPE html>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+        }
+        .order-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px white;
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 60px;
+            color: green;
+            animation: bounce 1s ease-in-out 2;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); color: yellowgreen; }
+        }
+        .details {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .details i {
+            color: white;
+            margin-right: 10px;
+        }
+        .product-details img {
+            max-width: 120px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border: 2px solid darkwhite;
+            color: white;
+            transition: all 0.3s;
+        }
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            box-shadow: 0px 0px 15px white;
+            transform: scale(1.1);
+        }
+        .thank-you {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-container">
+            <i class="fas fa-check-circle success-icon"></i>
+            <br><br>
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for your purchase. Your order details are below:</p>
+    
+            <div class="row details">
+                <div class="col-md-6">
+                    <p><i class="fas fa-user"></i> <strong>Name:</strong> {{ user.FirstName }} {{ user.LastName }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong>{{user.StreetAddress}}, {{user.City}}, {{user.State}}, {{user.Country}}, {{user.PinCode}}</p>
+                    <p><i class="fas fa-receipt"></i> <strong>Order ID:</strong> # {{ oid }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><i class="fas fa-cwhiteit-card"></i> <strong>Payment ID:</strong> # {{ pid }}</p>
+                    <p><i class="fas fa-dollar-sign"></i> <strong>Total Amount:</strong> ₹ {{ tbill }}</p>
+                    <p><i class="fas fa-box"></i> <strong>Total Items:</strong> {{ total_items }}</p>
+                </div>
+            </div>
+    <hr>
+            <div class="mt-4 product-details">
+                {% for item in cart_items %}
+                <div class="row">
+                    <div class="col-md-3">
+                        {% if item.helmet %}
+                        <img src="/{{ item.helmet.image }}" alt="{{ item.helmet.name }}" class="img-fluid rounded">
+                        {% elif item.jacket %}
+                        <img src="{{ item.jacket.image.url }}" alt="{{ item.jacket.name }}" class="img-fluid rounded">
+                        {% elif item.gloves %}
+                        <img src="{{ item.gloves.image.url }}" alt="{{ item.gloves.name }}" class="img-fluid rounded">
+                        {% elif item.boots %}
+                        <img src="{{ item.boots.image.url }}" alt="{{ item.boots.name }}" class="img-fluid rounded">
+                        {% elif item.kneeguard %}
+                        <img src="{{ item.kneeguard.image.url }}" alt="{{ item.kneeguard.name }}" class="img-fluid rounded">
+                        {% elif item.ridingPants %}
+                        <img src="{{ item.ridingPants.image.url }}" alt="{{ item.ridingPants.name }}" class="img-fluid rounded">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-9">
+                        <p><strong>Product Name:</strong> 
+                            {% if item.helmet %} {{ item.helmet.name }}
+                            {% elif item.jacket %} {{ item.jacket.name }}
+                            {% elif item.gloves %} {{ item.gloves.name }}
+                            {% elif item.boots %} {{ item.boots.name }}
+                            {% elif item.kneeguard %} {{ item.kneeguard.name }}
+                            {% elif item.ridingPants %} {{ item.ridingPants.name }}
+                            {% endif %}
+                        </p>
+                        <p><i class="fas fa-ruler"></i> <strong>Size:</strong> 
+                            {% if item.helmet %} {{ item.helmet.size }}
+                            {% elif item.jacket %} {{ item.jacket.size }}
+                            {% elif item.gloves %} {{ item.gloves.size }}
+                            {% elif item.boots %} {{ item.boots.size }}
+                            {% elif item.kneeguard %} {{ item.kneeguard.size }}
+                            {% elif item.ridingPants %} {{ item.ridingPants.size }}
+                            {% endif %}
+                        </p>
+                        <p><i class="fas fa-palette"></i> <strong>Color:</strong> 
+                            {% if item.helmet %} {{ item.helmet.color }}
+                            {% elif item.jacket %} {{ item.jacket.color }}
+                            {% elif item.gloves %} {{ item.gloves.color }}
+                            {% elif item.boots %} {{ item.boots.color }}
+                            {% elif item.kneeguard %} {{ item.kneeguard.color }}
+                            {% elif item.ridingPants %} {{ item.ridingPants.color }}
+                            {% endif %}
+                        </p>
+                        <p><i class="fas fa-tag"></i> <strong>Price:</strong> ₹ 
+                            {% if item.helmet %} {{ item.helmet.price }}
+                            {% elif item.jacket %} {{ item.jacket.price }}
+                            {% elif item.gloves %} {{ item.gloves.price }}
+                            {% elif item.boots %} {{ item.boots.price }}
+                            {% elif item.kneeguard %} {{ item.kneeguard.price }}
+                            {% elif item.ridingPants %} {{ item.ridingPants.price }}
+                            {% endif %}
+                        </p>
+                        <p><i class="fas fa-box"></i> <strong>Quantity:</strong> {{ item.quantity }}</p>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
+    
+            <div class="thank-you">We appreciate your business and look forward to serving you again!</div>
+            <a href="{% url 'homec' %}"><button class="btn btn-custom mt-3"><i class="fas fa-home"></i> Return to Home</button></a>
+        </div>
+    </div>
+</body>
+</html>

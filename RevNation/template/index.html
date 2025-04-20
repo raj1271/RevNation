@@ -1,0 +1,94 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+{% block container %}
+    
+<div class="container pd-section">
+    <div class="row align-items-center pd-item">
+        <div class="col-md-6 text-center">
+            <img src="{% static 'Helmet.jpg' %}" alt="Helmet" class="img-fluid">
+        </div>
+        <div class="col-md-6 pd-info" style="border-top: 2px solid white; border-left: 2px solid white;
+    box-shadow: 2px 2px 10px black;">
+            <h3>Helmet</h3>
+            <p>A helmet is a crucial safety gear for any rider. It protects your head from severe injuries in case of an accident and helps reduce the impact of collisions. A good helmet enhances visibility, reduces wind noise, and provides overall riding comfort.</p>
+            <button class=" btn btn-custom" >View Products</button>
+        </div>
+    </div>
+    
+    <div class="row align-items-center pd-item">
+        <div class="col-md-6 order-md-2 text-center">
+            <img src="{% static 'jaket.jpg' %}" alt="Jacket" class="img-fluid">
+        </div>
+        <div class="col-md-6 pd-info" style="border-top: 2px solid white; border-left: 2px solid white;
+    box-shadow: 2px 2px 10px black;">
+            <h3>Jacket</h3>
+            <p>A riding jacket provides essential protection from road rash, impact, and weather elements. Equipped with padding and ventilation, it enhances safety and comfort, making it a must-have for every biker.</p>
+            <button class=" btn btn-custom" >View Products</button>
+        </div>
+    </div>
+    
+    <div class="row align-items-center pd-item">
+        <div class="col-md-6 text-center">
+            <img src="{% static 'gloves.jpg' %}" alt="Gloves" class="img-fluid">
+        </div>
+        <div class="col-md-6 pd-info order-md-1" style="border-top: 2px solid white; border-left: 2px solid white;
+    box-shadow: 2px 2px 10px black;">
+            <h3>Gloves</h3>
+            <p>Riding gloves provide better grip, prevent hand fatigue, and protect your hands from harsh weather conditions. They also safeguard against abrasions in case of falls, ensuring comfort and control during rides.</p>
+            <button class=" btn btn-custom" >View Products</button>
+        </div>
+            
+    </div>
+    
+    <div class="row align-items-center pd-item">
+        <div class="col-md-6 order-md-2 text-center">
+            <img src="{% static 'boots.jpg' %}" alt="Boots" class="img-fluid">
+        </div>
+        <div class="col-md-6 pd-info order-md-1" style="border-top: 2px solid white; border-left: 2px solid white;
+    box-shadow: 2px 2px 10px black;">
+            <h3>Boots</h3>
+            <p>Motorcycle boots offer ankle support, protect against road debris, and provide better grip on the footpegs. They help prevent foot injuries and ensure stability while riding or stopping at signals.</p>
+            <button class=" btn btn-custom" >View Products</button>
+        </div>
+    </div>
+
+    <div class="row align-items-center pd-item">
+        <div class="col-md-6 text-center">
+            <img src="{% static 'Kneeguard.jpg' %}" alt="Knee Guard" class="img-fluid">
+        </div>
+        <div class="col-md-6 pd-info order-md-1" style="border-top: 2px solid white; border-left: 2px solid white;
+    box-shadow: 2px 2px 10px black;">
+            <h3>Knee Guard</h3>
+            <p>Knee guards provide crucial protection for your knees against impact and abrasions. They absorb shock and help prevent injuries in case of a crash, ensuring safety and comfort for long rides.</p>
+            <button class=" btn btn-custom" >View Products</button>
+        </div>
+            
+    </div>
+    
+    <div class="row align-items-center pd-item">
+        <div class="col-md-6 order-md-2 text-center">
+            <img src="{% static 'pants.jpg' %}" alt="Riding Pants" class="img-fluid">
+        </div>
+        <div class="col-md-6 pd-info order-md-1" style="border-top: 2px solid white; border-left: 2px solid white;
+    box-shadow: 2px 2px 10px black;">
+            <h3>Riding Pants</h3>
+            <p>Riding pants are designed to offer protection from abrasions and impacts. With reinforced padding and breathable fabric, they ensure comfort while enhancing safety on long journeys.</p>
+            <button class=" btn btn-custom " >View Products</button>
+        </div>
+    </div>
+</div>
+
+    <section class="quiz-section">
+        <h2>Test Your Bike Safety Knowledge</h2>
+        <p class="quiz-question">What is the most important piece of safety gear for a biker?</p>
+        <div class="quiz-options">
+            <button class="btn btn-custom" onclick="checkAnswer('Helmet')">Helmet</button>
+            <button class="btn btn-custom" onclick="checkAnswer('Jacket')">Jacket</button>
+            <button class="btn btn-custom" onclick="checkAnswer('Gloves')">Gloves</button>
+            <button class="btn btn-custom" onclick="checkAnswer('Boots')">Boots</button>
+        </div>
+        <p id="quiz-result" class="quiz-result"></p>
+    </section>
+    
+    {% endblock container %} 

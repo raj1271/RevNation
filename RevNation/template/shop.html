@@ -1,0 +1,150 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+{% block container %}
+
+<div class="container shop-container">
+    <br><br>
+    <h2>Find Your Perfect Gear</h2><br>
+        <div class="category-buttons">
+            <button class="btn btn-custom" onclick="filterProducts('helmet')"><i class="fas fa-hard-hat"></i> Helmet</button>
+            <button class="btn btn-custom" onclick="filterProducts('jacket')"><i class="fas fa-tshirt"></i> Jacket</button>
+            <button class="btn btn-custom" onclick="filterProducts('gloves')"><i class="fas fa-hands"></i> Gloves</button>
+            <button class="btn btn-custom" onclick="filterProducts('boots')"><i class="fas fa-shoe-prints"></i> Boots</button>
+            <button class="btn btn-custom" onclick="filterProducts('kneeguard')"><i class="fas fa-shield-halved"></i> Knee Guard</button>
+            <button class="btn btn-custom" onclick="filterProducts('riding-pants')"><i class="fas fa-person-walking"></i> Riding Pants</button>
+            <button class="btn btn-custom" onclick="filterProducts('all')"><i class="fas fa-cubes"></i> Show All</button>
+        </div>
+
+<br>
+<div class="filter-bar">
+    <label for="sort-options">Sort by:</label>
+    <select id="sort-options" class="form-control">
+        <option value="default">Default</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="name-asc">Name: A-Z</option>
+        <option value="name-desc">Name: Z-A</option>
+    </select>
+</div>
+    <br>
+    <div class="row g-5" id="product-list">
+        {% for i in helmets %}
+        <div class="col-md-4 col-sm-4 product-card" data-category="helmet" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="product">
+                <h2>{{ i.brand }}</h2>
+                <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                <h4 class="col-sm-12">{{ i.name }}</h4>
+                <p>MRP Rs: {{ i.price }}</p>
+
+                <div class="col-sm-12">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    &nbsp;
+                    {% if request.session.user_emailId is not None %}
+                    <a href="{% url 'addtocart' category='helmet' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                            CART</button></a>
+                            {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in jackets %}
+        <div class="col-md-4 col-sm-4 product-card" data-category="jacket" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="product">
+                <h2>{{ i.brand }}</h2>
+                <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                <h4 class="col-sm-12">{{ i.name }}</h4>
+                <p>MRP Rs: {{ i.price }}</p>
+                <div class="col-sm-12">
+                    <a href="{% url 'fullProduct' category='jacket' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    &nbsp;
+                    {% if request.session.user_emailId is not None %}
+                    <a href="{% url 'addtocart' category='jacket' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                            CART</button></a>
+                            {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in gloves %}
+        <div class="col-md-4 col-sm-4 product-card" data-category="gloves" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="product">
+                <h2>{{ i.brand }}</h2>
+                <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                <h4 class="col-sm-12">{{ i.name }}</h4>
+                <p>MRP Rs: {{ i.price }}</p>
+                <div class="col-sm-12">
+                    <a href="{% url 'fullProduct' category='gloves' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    &nbsp;
+                    {% if request.session.user_emailId is not None %}
+                    <a href="{% url 'addtocart' category='gloves' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                            CART</button></a>
+                            {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in boots %}
+        <div class="col-md-4 col-sm-4 product-card" data-category="boots" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="product">
+                <h2>{{ i.brand }}</h2>
+                <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                <h4 class="col-sm-12">{{ i.name }}</h4>
+                <p>MRP Rs: {{ i.price }}</p>
+                <div class="col-sm-12">
+                    <a href="{% url 'fullProduct' category='boots' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    &nbsp;
+                    {% if request.session.user_emailId is not None %}
+                    <a href="{% url 'addtocart' category='boots' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                            CART</button></a>
+                            {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in kneeguard %}
+        <div class="col-md-4 col-sm-4 product-card" data-category="kneeguard" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="product">
+                <h2>{{ i.brand }}</h2>
+                <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                <h4 class="col-sm-12">{{ i.name }}</h4>
+                <p>MRP Rs: {{ i.price }}</p>
+                <div class="col-sm-12">
+                    <a href="{% url 'fullProduct' category='kneeguard' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    &nbsp;
+                    {% if request.session.user_emailId is not None %}
+                    <a href="{% url 'addtocart' category='kneeguard' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                            CART</button></a>
+                            {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in ridingpant %}
+        <div class="col-md-4 col-sm-4 product-card" data-category="riding-pants" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="product">
+                <h2>{{ i.brand }}</h2>
+                <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                <h4 class="col-sm-12">{{ i.name }}</h4>
+                <p>MRP Rs: {{ i.price }}</p>
+                <div class="col-sm-12">
+                    <a href="{% url 'fullProduct' category='riding-pants' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    &nbsp;
+                    {% if request.session.user_emailId is not None %}
+                    <a href="{% url 'addtocart' category='riding-pants' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                            CART</button></a>
+                            {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock container %}

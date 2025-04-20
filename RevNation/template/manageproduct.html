@@ -1,0 +1,212 @@
+{% extends 'AdminBase.html' %}
+
+{% load static %}
+{% block container %}
+<br>
+<h2> &nbsp;<i class="fas fa-box"></i> Manage Products</h2><br>
+<div class="container">
+        <div class="col-md-12 col-sm-12 product-card text-center">
+            <a href="{% url 'addproduct' %}" style="text-decoration: none;">
+                <div class="card p-3"><br>
+                    <h5><i class="fas fa-plus-circle"></i> Add New Product</h5>
+                    <p>Upload new products to the store with details.</p>
+                </div>
+            </a>
+        </div>
+</div><br><br>
+<div class="container shop-container">
+    <div class="category-buttons text-center">
+        <button class="btn btn-custom" onclick="filterProducts('helmet')">Helmet</button>
+        <button class="btn btn-custom" onclick="filterProducts('jacket')">Jacket</button>
+        <button class="btn btn-custom" onclick="filterProducts('gloves')">Gloves</button>
+        <button class="btn btn-custom" onclick="filterProducts('boots')">Boots</button>
+        <button class="btn btn-custom" onclick="filterProducts('kneeguard')">Knee Guard</button>
+        <button class="btn btn-custom" onclick="filterProducts('riding-pants')">Riding Pants</button>
+        <button class="btn btn-custom" onclick="filterProducts('all')">Show All</button>
+    </div>
+
+
+    <div class="filter-bar">
+        <label for="sort-options">Sort by:</label>
+        <select id="sort-options" class="form-control">
+            <option value="default">Default</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name-asc">Name: A-Z</option>
+            <option value="name-desc">Name: Z-A</option>
+        </select>
+    </div>
+    <br>
+    <div class="row g-5" id="product-list">
+        {% for i in helmets %}
+        <div class="col-md-12 col-sm-12 product-card" data-category="helmet" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="row product">
+                <div class="col-sm-4">
+                    <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ i.brand }}</h2>
+                    <h4 class="col-sm-12">{{ i.name }}</h4>
+                    <p>MRP Rs: {{ i.price }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom w-100"><i class="fas fa-edit"></i> Edit</button></a>
+                    <br>
+                    <br>
+
+                    <a href=""><button class="btn btn-custom w-100"><i class="fas fa-trash"></i> Delete</button></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in jackets %}
+        <div class="col-md-12 col-sm-12 product-card" data-category="jacket" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="row product">
+                <div class="col-sm-4">
+                    <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ i.brand }}</h2>
+                    <h4 class="col-sm-12">{{ i.name }}</h4>
+                    <p>MRP Rs: {{ i.price }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom w-100"><i class="fas fa-edit"></i> Edit</button></a>
+                    &nbsp;
+
+                    <a href=""><button class="btn btn-custom w-100"><i class="fas fa-trash"></i> Delete</button></a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in gloves %}
+        <div class="col-md-12 col-sm-12 product-card" data-category="gloves" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="row product">
+                <div class="col-sm-4">
+                    <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ i.brand }}</h2>
+                    <h4 class="col-sm-12">{{ i.name }}</h4>
+                    <p>MRP Rs: {{ i.price }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom w-100"><i class="fas fa-edit"></i> Edit</button></a>
+                    &nbsp;
+
+                    <a href=""><button class="btn btn-custom w-100"><i class="fas fa-trash"></i> Delete</button></a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in boots %}
+        <div class="col-md-12 col-sm-12 product-card" data-category="boots" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="row product">
+                <div class="col-sm-4">
+                    <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ i.brand }}</h2>
+                    <h4 class="col-sm-12">{{ i.name }}</h4>
+                    <p>MRP Rs: {{ i.price }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom w-100"><i class="fas fa-edit"></i> Edit</button></a>
+                    &nbsp;
+
+                    <a href=""><button class="btn btn-custom w-100"><i class="fas fa-trash"></i> Delete</button></a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in kneeguard %}
+        <div class="col-md-12 col-sm-12 product-card" data-category="kneeguard" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="row product">
+                <div class="col-sm-4">
+                    <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ i.brand }}</h2>
+                    <h4 class="col-sm-12">{{ i.name }}</h4>
+                    <p>MRP Rs: {{ i.price }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom w-100"><i class="fas fa-edit"></i> Edit</button></a>
+                    &nbsp;
+
+                    <a href=""><button class="btn btn-custom w-100"><i class="fas fa-trash"></i> Delete</button></a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for i in ridingpant %}
+        <div class="col-md-12 col-sm-12 product-card" data-category="riding-pants" data-name="{{ i.name }}"
+            data-price="{{ i.price }}">
+            <div class="row product">
+                <div class="col-sm-4">
+                    <img src="/{{ i.image }}" class="img-fluid" alt="{{ i.name }}"><br>
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ i.brand }}</h2>
+                    <h4 class="col-sm-12">{{ i.name }}</h4>
+                    <p>MRP Rs: {{ i.price }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom"><i class="fas fa-edit"></i> Edit</button></a>
+                    &nbsp;
+
+                    <a href=""><button class="btn btn-custom "><i class="fas fa-trash"></i> Delete</button></a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    function filterProducts(category) {
+        let products = document.querySelectorAll('.product-card');
+        products.forEach(product => {
+            if (product.getAttribute('data-category') === category || category === 'all') {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+
+    document.getElementById("sort-options").addEventListener("change", function () {
+        let products = Array.from(document.querySelectorAll(".product-card"));
+        let sortType = this.value;
+
+        if (sortType === "price-low") {
+            products.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+        } else if (sortType === "price-high") {
+            products.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+        } else if (sortType === "name-asc") {
+            products.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+        } else if (sortType === "name-desc") {
+            products.sort((a, b) => b.dataset.name.localeCompare(a.dataset.name));
+        }
+
+        let container = document.getElementById("product-list");
+        container.innerHTML = ""; // Clear the existing products
+        products.forEach(product => container.appendChild(product)); // Append sorted products
+    });
+</script>
+{% endblock container %}

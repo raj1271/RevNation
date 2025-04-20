@@ -1,0 +1,421 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    color: white;
+}
+
+#h {
+
+    font-weight: bold;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.profile {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.profile button {
+    margin-top: 5px;
+}
+
+header {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid white;
+}
+
+.nav-link {
+    color: white;
+    margin-top: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: gray;
+    text-shadow: 0px 0px 20px white;
+    font-weight: bolder;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: white;
+    font-weight: bolder;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: url('bike-hero.jpg') no-repeat center center/cover;
+    position: relative;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.pd-section {
+    padding: 50px 0;
+}
+
+.pd-item {
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-in-out;
+}
+
+.pd-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.pd-item img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+.pd-info {
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    transition: transform 0.5s;
+}
+
+.pd-info h3 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.product {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.quiz-section {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+
+    padding: 40px;
+    text-align: center;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    margin-top: 40px;
+}
+
+.quiz-question {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.quiz-result {
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: lightgreen;
+}
+
+footer {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    padding: 20px;
+    text-align: center;
+    border-top: 3px solid white;
+    margin-top: 40px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.btn.clicked {
+    transform: scale(0.9);
+    transition: transform 0.1s;
+}
+
+
+/* about */
+.about-container {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.about-container h2 {
+    color: white;
+    font-size: 2.5rem;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: auto;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.mission-section {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    padding: 30px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.contact-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 50px 20px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+/* Shop */
+
+.shop-container {
+    padding: 0;
+    text-align: center;
+}
+
+.shop-container h2 {
+    color: white;
+    font-size: 2.5rem;
+}
+
+.product {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform 0.3s;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+.product img {
+    width: 200px;
+    height: 200px;
+}
+
+/* FAQ */
+.faq-container {
+    padding: 50px 0;
+
+}
+
+.accordion-item {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+}
+
+.accordion-button {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+}
+
+.form-control {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    color: white;
+}
+
+.question-form {
+    margin-top: 30px;
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.accordion-body {
+    color: gray;
+}
+
+/* Blog */
+
+.blog-header {
+    text-align: center;
+    text-shadow: 4px 4px 10px white;
+    padding: 50px 20px;
+    background: url('bike-hero.jpg') no-repeat center center/cover;
+    height: 250px;
+}
+
+.blog-card {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 30px;
+    transition: transform 0.3s;
+}
+
+.blog-card:hover {
+    transform: scale(1.05);
+}
+
+/* Full View */
+.fhproduct-container {
+    margin-top: 50px;
+}
+
+.fhproduct-image {
+    width: 100%;
+    border-radius: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+.btn-custom {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    margin: 10px;
+    color: white;
+    transition: all 0.3s;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #ffffff, #000000);
+    color: black;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    box-shadow: 2px 2px 5px white;
+    transform: scale(1.1);
+}
+
+/* Helmet */
+
+
+.filter-section {
+    background: #1e1e1e;
+}
+
+/* CART */
+
+.cart-container {
+    padding: 50px 20px;
+}
+
+.cart-item {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.cart-item-img {
+    width: 100px;
+    height: 100px;
+}
+
+.review-section {
+    margin-top: 50px;
+}
+
+.review-card {
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.product-container {
+    margin-top: 50px;
+    padding: 30px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #000, #3a3a3a);
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+
+.product-image {
+    width: 400px;
+    margin-left: 10px;
+    border-radius: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+.pr{
+    padding-left: 20px;
+    border-radius: 20px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 5px black;
+}
+.prd{
+    padding: 15px;
+}
+
+.product-details i {
+    color: white;
+    margin-right: 10px;
+}

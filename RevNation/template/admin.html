@@ -1,0 +1,49 @@
+{% extends 'AdminBase.html' %}
+
+{% load static %}
+{% block container %}
+    
+    <div class="container-fluid" style="background-color: transparent;">
+        
+        <main class="content">
+            
+            <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-box-open"></i> Total Products</h5>
+                        <p>{{totalproduct}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-users"></i> Total Users</h5>
+                        <p>{{totaluser}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-shopping-cart"></i> Total Orders</h5>
+                        <p>{{totalorder}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-money-bill-wave"></i> Revenue</h5>
+                        <p><i class="fa-solid fa-indian-rupee-sign"></i> {{totalrevenue}}</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mt-3">
+                    <div class="card p-3">
+                        <h5><i class="fas fa-star"></i> Customer Reviews</h5>
+                        <p>4.8/5 Rating</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   
+    {% endblock container %} 

@@ -1,0 +1,52 @@
+{% extends 'AdminBase.html' %}
+
+{% load static %}
+{% block container %}
+    <div class="container-fluid">
+            <main class="content">
+                <h2><i class="fas fa-users"></i> User Management</h2>
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <td> </td>
+                            <td>ID</td>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile No.</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in admin %}
+                        <tr>
+                            <td> <i class="fa-solid fa-user-gear"></i> </td>
+                            <td>{{ forloop.counter0 }}</td>
+                            <td>{{i.adminName}}</td>
+                            <td>{{i.adminEmailId}}</td>
+                            <td>{{i.adminPhoneno}}</td>
+                            <td>
+                                <a href=""><button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</button></a>
+                                <a href="{% url 'deleteuser' i.adminEmailId %}"><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% for i in user %}
+                        <tr>
+                            <td> <i class="fa-solid fa-user"></i> </td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{i.FirstName}} {{i.LastName}}</td>
+                            <td>{{i.EmailId}}</td>
+                            <td>{{i.PhoneNo}}</td>
+                            <td>
+                                <a href=""><button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</button></a>
+                                <a href="{% url 'deleteuser' i.EmailId %}"><button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</button></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+
+        {% endblock container %}
+

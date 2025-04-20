@@ -1,0 +1,38 @@
+{% extends 'AdminBase.html' %}
+
+{% load static %}
+{% block container %}
+<div class="container-fluid">
+    <main class="content">
+        <h2><i class="fas fa-shopping-cart"></i> Orders</h2>
+        <table class="table table-dark table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Product</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orderdata %}
+                <tr>
+                    <td>{{ order.orderNo }}</td>
+                    <td>{{ order.user.FirstName }} {{ order.user.LastName }}</td>
+                    <td>
+                        {% for item in order.order_items.all %}
+                            <span>{{ item.product_name }} (x{{ item.quantity }})</span><br>
+                        {% endfor %}
+                    </td>
+                    <td>₹{{ order.TotalBill }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Cancel</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</div>
+{% endblock container %}

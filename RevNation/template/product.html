@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helmet Shop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+        }
+
+        header {
+            background: #000;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid white;
+        }
+
+        .filter-section {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .product {
+            background: #1e1e1e;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            border: 1px solid white;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-custom {
+            background: white;
+            color: gray;
+            border: none;
+            padding: 10px 15px;
+            transition: 0.3s;
+        }
+
+        .btn-custom:hover {
+            background: darkwhite;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Helmet Shop</h1>
+    </header>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="filter-section">
+                    <h4>Filter by</h4>
+                    <p><strong>Category</strong></p>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Full Face</a></li>
+                        <li><a href="#" class="text-white">Open Face</a></li>
+                        <li><a href="#" class="text-white">Off-Road</a></li>
+                    </ul>
+                    <div class="filter-bar">
+                        <label for="sort-options">Sort by:</label>
+                        <select id="sort-options" class="form-select w-auto">
+                            <option value="default">Default</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name-asc">Name: A-Z</option>
+                            <option value="name-desc">Name: Z-A</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row g-4" id="product-list">
+                    
+                    <div class="col-md-4 col-sm-6 product-card" data-name="Saber Spark Helmet" data-price="4220">
+                        <div class="product">
+                            <img src="helmet3.jpg" class="img-fluid" alt="Helmet">
+                            <h3>Saber Spark Helmet</h3>
+                            <p>MRP Rs. 4,220</p>
+                            <button class="btn btn-custom">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("sort-options").addEventListener("change", function() {
+            let products = Array.from(document.querySelectorAll(".product-card"));
+            let sortType = this.value;
+            
+            if (sortType === "price-low") {
+                products.sort((a, b) => a.dataset.price - b.dataset.price);
+            } else if (sortType === "price-high") {
+                products.sort((a, b) => b.dataset.price - a.dataset.price);
+            } else if (sortType === "name-asc") {
+                products.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+            } else if (sortType === "name-desc") {
+                products.sort((a, b) => b.dataset.name.localeCompare(a.dataset.name));
+            }
+            
+            let container = document.getElementById("product-list");
+            container.innerHTML = "";
+            products.forEach(product => container.appendChild(product));
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

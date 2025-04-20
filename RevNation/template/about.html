@@ -1,0 +1,51 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+{% block container %}
+
+    <div class="container about-container">
+        <h2>Ride Safe, Ride Smart</h2>
+        <p class="about-content">At RevNation, our mission is to provide top-quality protective gear for passionate bikers. Whether you're a daily commuter or an adventure rider, we understand the importance of safety on the road. Our products are designed to keep you protected without compromising on style.</p>
+        
+        <div class="mission-section" style="border-top: 2px solid white; border-left: 2px solid white;">
+            <h3>Our Mission</h3>
+            <p>To offer high-quality, stylish, and durable bike safety gear that enhances the riding experience while ensuring maximum protection.</p>
+        </div>
+        
+        <div class="mission-section" style="border-top: 2px solid white; border-left: 2px solid white;">
+            <h3>Why Choose Us?</h3>
+            <ul class="list-unstyled">
+                <li>&#x2714; Premium-quality gear for ultimate protection</li>
+                <li>&#x2714; Designed for bikers, by bikers</li>
+                <li>&#x2714; Trendy yet rugged designs</li>
+                <li>&#x2714; Customer satisfaction is our priority</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <h1 class="text-center">Contact Us</h1>
+        <div class="contact-container">
+            <form align="left">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Enter your message" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-custom">Send Message</button>
+            </form>
+        </div>
+    </div>
+    
+    {% endblock container %} 

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - RevNation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .register-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border-radius: 10px;
+            border: 2px solid white;
+            box-shadow: 0 0 15px whitesmoke;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+            border: 1px solid white;
+            transition: all 0.3s;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            box-shadow: 0 0 15px white;
+            transform: scale(0.9);
+        }
+
+        .form-control {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+            border: 1px solid white;
+        }
+
+        .form-control:focus {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: gray;
+            border-color: darkwhite;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="register-container">
+            <img src="{% static 'logo.png' %}" alt="Bike Safety Gear Logo" class="logo">
+            <h2 class="text-center">Register</h2>
+            <form action="{% url 'regiuser' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" name="fname" requiwhite>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-control" name="lname" requiwhite>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Email ID</label>
+                        <input type="email" class="form-control" name="emailid" requiwhite>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" name="phno" requiwhite>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" requiwhite>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" name="dob" requiwhite>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Gender</label>
+                        <select class="form-control" name="gender" requiwhite>
+                            <option value="" align="center">-----Select Gender-----</option>
+                            <option value="male" align="center">-----Male-----</option>
+                            <option value="female" align="center">-----Female-----</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Street Address</label>
+                        <input type="text" class="form-control" name="StreetAddress">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" name="City">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" name="State">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Country</label>
+                        <input type="text" class="form-control" name="Country">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">PinCode</label>
+                        <input type="text" class="form-control" name="PinCode">
+                    </div>
+                </div><br>
+                <button type="submit" class="btn btn-custom w-100">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

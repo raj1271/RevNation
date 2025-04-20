@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Order & Payment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var options = {
+                key: "rzp_test_WxqVYc8Qj2pdwX",
+                amount: '{{orderobj.TotalBill}}'*100,
+                currency: "INR",
+                name: "RevNation",
+                handler: function(response) {
+                    window.location.href = `paymentsuccess?order_id={{orderobj.orderNo}}&payment_id=${response.razorpay_payment_id}`;
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            var payButton = document.getElementById("pay-btn");
+            if (payButton) {
+                payButton.onclick = function (e) {
+                    rzp1.open();
+                    e.preventDefault();
+                };
+            }
+        });
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .order-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px white;
+        }
+        .order-header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border: 1px solid white;
+            color: white;
+            transition: all 0.3s;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .btn-custom:hover {
+            box-shadow: 0px 0px 15px white;
+        }
+        .cart-item {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border: 1px solid white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+        }
+        .cart-item img {
+            width: 80px;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-container">
+            <h2 class="order-header"><i class="fas fa-clipboard-check"></i> Confirm Your Order</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Billing Details</h4>
+                    <p><strong>Order No:</strong> {{orderobj.orderNo}}</p>
+                    <p><strong>Name:</strong> {{orderobj.user.FirstName}} {{orderobj.user.LastName}}</p>
+                    <p><strong>Email:</strong> {{orderobj.user.EmailId}}</p>
+                    <p><strong>Phone:</strong> {{orderobj.user.PhoneNo}}</p>
+                    <p><strong>Address:</strong> {{orderobj.StreetAddress}}, {{orderobj.City}}, {{orderobj.State}}, {{orderobj.Country}}, {{orderobj.PinCode}}</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Order Summary</h4>
+                    {% for item in cart_items %}
+                    <div class="cart-item">
+                        {% if item.helmet %}
+                        <img src="{{ item.helmet.image.url }}" alt="Helmet">
+                        {% elif item.jacket %}
+                        <img src="{{ item.jacket.image.url }}" alt="Jacket">
+                        {% elif item.gloves %}
+                        <img src="{{ item.gloves.image.url }}" alt="Gloves">
+                        {% elif item.boots %}
+                        <img src="{{ item.boots.image.url }}" alt="Boots">
+                        {% elif item.kneeguard %}
+                        <img src="{{ item.kneeguard.image.url }}" alt="Knee Guard">
+                        {% elif item.ridingPants %}
+                        <img src="{{ item.ridingPants.image.url }}" alt="Riding Pants">
+                        {% endif %}
+                        <div>
+                            <h5>
+                                {% if item.helmet %} {{ item.helmet.name }}
+                                {% elif item.jacket %} {{ item.jacket.name }}
+                                {% elif item.gloves %} {{ item.gloves.name }}
+                                {% elif item.boots %} {{ item.boots.name }}
+                                {% elif item.kneeguard %} {{ item.kneeguard.name }}
+                                {% elif item.ridingPants %} {{ item.ridingPants.name }}
+                                {% endif %}
+                            </h5>
+                            <p>Quantity: {{ item.quantity }}</p>
+                            <p>Price: <i class="fa-solid fa-indian-rupee-sign"></i>
+                                {% if item.helmet %} {{ item.helmet.price }}
+                                {% elif item.jacket %} {{ item.jacket.price }}
+                                {% elif item.gloves %} {{ item.gloves.price }}
+                                {% elif item.boots %} {{ item.boots.price }}
+                                {% elif item.kneeguard %} {{ item.kneeguard.price }}
+                                {% elif item.ridingPants %} {{ item.ridingPants.price }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div><br>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-custom" id="pay-btn"><i class="fas fa-check-circle"></i> Confirm & Place Order ( {{orderobj.TotalBill}} )</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

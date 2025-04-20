@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/48b561d95d.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const passinc = "{{ passinc|default:'0' }}".trim();
+            if (passinc > 0) {  
+            document.getElementById("error-message").style.display = "block";
+        }
+        
+        })
+
+
+        function showFields() {
+            var productType = document.getElementById("product_type").value;
+            var sections = document.querySelectorAll(".product-fields");
+            sections.forEach(section => section.style.display = "none");
+            if (productType) {
+                document.getElementById(productType + "_fields").style.display = "block";
+            }
+        }
+
+        
+
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border-radius: 10px;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            margin-bottom: 15px;
+        }
+
+        .btn-custom {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+            color: white;
+            transition: all 0.3s;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .btn-custom:hover {
+            background: darkwhite;
+            transform: scale(0.9);
+        }
+
+        .form-control {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: gray;
+            border-top: 2px solid white;
+            border-left: 2px solid white;
+        }
+
+        .form-control:focus {
+            background: linear-gradient(135deg, #000, #3a3a3a);
+            color: gray;
+            border-color: darkwhite;
+            box-shadow: none;
+        }
+        .error-message {
+            color: white;
+            display: none;
+            /* Hidden initially */
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="{% static 'logo.png' %}" alt="REVNATION LOGO" class="logo">
+        <h2 class="text-center">Add a New Product</h2>
+        <p id="error-message" class="error-message">Invalid Email or Password!</p>
+        <form action="{% url 'addproduct' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <label for="product_type" class="form-label"><b><i class="fa-solid fa-tag"></i> Select Product
+                            Type:</b></label>
+                    <select name="product_type" id="product_type" class="form-control" onchange="showFields()">
+                        <option value="" align="center">-- Select --</option>
+                        <option value="helmet" align="center">⛑ Helmet</option>
+                        <option value="jacket" align="center">🧥 Jacket</option>
+                        <option value="gloves" align="center">🧤 Gloves</option>
+                        <option value="boots" align="center">🥾 Boots</option>
+                        <option value="Kneeguard" align="center">🦵 Kneeguard</option>
+                        <option value="riding_pants" align="center">👖 Riding Pants</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><b><i class="fa-solid fa-tag"></i> Product Name:</b></label>
+                    <input type="text" name="name" class="form-control" requiwhite>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><b><i class="fa-solid fa-tags"></i> Brand:</b></label>
+                    <input type="text" name="brand" class="form-control" requiwhite>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><b><i class="fa-solid fa-money-bill-wave"></i> Price:</b></label>
+                    <input type="number" name="price" class="form-control" requiwhite>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><b><i class="fa-solid fa-cubes"></i> Stock Availability:</b></label>
+                    <select name="stock" class="form-control">
+                        <option value="In Stock" align="center">In Stock</option>
+                        <option value="Out of Stock" align="center">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label"><b><i class="fa-solid fa-images"></i> Image:</b></label>
+                    <input type="file" name="image" class="form-control">
+                </div><br>
+                <hr><br>
+
+                <!-- Helmet -->
+                <div id="helmet_fields" class="product-fields col-md-12" style="display:none;">
+                    <h4>⛑ Helmet Details</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-font-awesome"></i> Type:</label>
+                            <select class="form-control" name="helmet_type">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Full Face" align="center">Full Face</option>
+                                <option value="Open Face" align="center">Open Face</option>
+                                <option value="Modular" align="center">Modular</option>
+                                <option value="Off-Road" align="center">Off-Road</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-certificate"></i> Certifications:</label>
+                            <select class="form-control" name="helmet_certifications">
+                                <option align="center">----- Select Certifications -----</option>
+                                <option value="ISI" align="center">DOT,ECE,ISI</option>
+                                <option value="ISI" align="center">DOT,ISI</option>
+                                <option value="ISI" align="center">DOT,ECE</option>
+                                <option value="ECE" align="center">ECE</option>
+                                <option value="DOT" align="center">DOT</option>
+                                <option value="ISI" align="center">ISI</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-ruler"></i> Size:</label>
+                            <select class="form-control" name="helmet_size">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="S" align="center">S</option>
+                                <option value="M" align="center">M</option>
+                                <option value="L" align="center">L</option>
+                                <option value="XL" align="center">XL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-eye-dropper"></i> Color:</label>
+                            <input type="text" name="helmet_color" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jacket Fields -->
+                <div id="jacket_fields" class="product-fields" style="display:none;">
+                    <h4>🧥 Jacket Details</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-font-awesome"></i> Type:</label>
+                            <select class="form-control" name="jacket_type">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Winter" align="center">Winter</option>
+                                <option value="Adventure" align="center">Adventure</option>
+                                <option value="Racing" align="center">Racing</option>
+                                <option value="Off-Road" align="center">Off-Road</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-ruler"></i> Size:</label>
+                            <select class="form-control" name="jacket_size">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="S" align="center">S</option>
+                                <option value="M" align="center">M</option>
+                                <option value="L" align="center">L</option>
+                                <option value="XL" align="center">XL</option>
+                                <option value="XXL" align="center">XXL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-eye-dropper"></i> Color:</label>
+                            <input type="text" name="jacket_color" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-layer-group"></i> Material:</label>
+                            <select class="form-control" name="jacket_material">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Leather" align="center">Leather</option>
+                                <option value="Textile" align="center">Textile</option>
+                                <option value="Mesh" align="center">Mesh</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-certificate"></i> Certifications:</label>
+                            <input type="text" name="jacket_certifications" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Reflective_Elements:</label>
+                            <select class="form-control" name="jacket_Reflective">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Ventilation System:</label>
+                            <select class="form-control" name="jacket_ventilation">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Padding Protection:</label>
+                            <select class="form-control" name="jacket_padding">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label"><i class="fa-solid fa-droplet-slash"></i> Waterproofing:</label>
+                            <select class="form-control" name="jacket_waterproofing">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gloves Fields -->
+                <div id="gloves_fields" class="product-fields" style="display:none;">
+                    <h4>🧤 Gloves Details</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-font-awesome"></i> Type:</label>
+                            <select class="form-control" name="gloves_type">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Full Gauntlet" align="center">Full Gauntlet</option>
+                                <option value="Short Cuff" align="center">Short Cuff</option>
+                                <option value="Winter" align="center">Winter</option>
+                                <option value="Racing" align="center">Racing</option>
+                                <option value="Adventure" align="center">Adventure</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-ruler"></i> Size:</label>
+                            <select class="form-control" name="gloves_size">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="S" align="center">S</option>
+                                <option value="M" align="center">M</option>
+                                <option value="L" align="center">L</option>
+                                <option value="XL" align="center">XL</option>
+                                <option value="XXL" align="center">XXL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-eye-dropper"></i> Color:</label>
+                            <input type="text" name="gloves_color" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-layer-group"></i> Material:</label>
+                            <select class="form-control" name="gloves_material">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Leather" align="center">Leather</option>
+                                <option value="Reinforced Textile" align="center">Reinforced Textile</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-certificate"></i> Certifications:</label>
+                            <input type="text" name="gloves_certifications" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-droplet-slash"></i> Waterproofing:</label>
+                            <select class="form-control" name="gloves_waterproofing">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label"><i class="fa-solid fa-fingerprint"></i> Touchscreen Compatibility:</label>
+                            <select class="form-control" name="gloves_touchscreen">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Boots Fields -->
+                <div id="boots_fields" class="product-fields" style="display:none;">
+                    <h4>🥾 Boots Details</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-font-awesome"></i> Type:</label>
+                            <select class="form-control" name="boots_type">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Touring" align="center">Touring</option>
+                                <option value="Racing" align="center">Racing</option>
+                                <option value="Adventure" align="center">Adventure</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-ruler"></i> Size:</label>
+                            <select class="form-control" name="boots_size">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="S" align="center">S</option>
+                                <option value="M" align="center">M</option>
+                                <option value="L" align="center">L</option>
+                                <option value="XL" align="center">XL</option>
+                                <option value="XXL" align="center">XXL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-eye-dropper"></i> Color:</label>
+                            <input type="text" name="boots_color" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-layer-group"></i> Material:</label>
+                            <select class="form-control" name="boots_material">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Leather" align="center">Leather</option>
+                                <option value="Rubber " align="center">Rubber </option>
+                                <option value="PVC" align="center">PVC</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-certificate"></i> Certifications:</label>
+                            <input type="text" name="boots_certifications" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Closure Type:</label>
+                            <select class="form-control" name="boots_closure">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Velcro" align="center">Velcro</option>
+                                <option value="Zipper" align="center">Zipper</option>
+                                <option value="Lace-up" align="center">Lace-up</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label"><i class="fa-solid fa-droplet-slash"></i> Waterproofing:</label>
+                            <select class="form-control" name="boots_waterproofing">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Kneeguard Fields -->
+                <div id="Kneeguard_fields" class="product-fields" style="display:none;">
+                    <h4>🦵 Kneeguard Details</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Protection:</label>
+                            <select class="form-control" name="kneeguard_protection">
+                            <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Adjustable Straps</label>
+                            <select class="form-control" name="kneeguard_straps">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label"><i class="fa-solid fa-layer-group"></i> Material:</label>
+                            <select class="form-control" name="kneeguard_material">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="Carbon Fiber" align="center">Carbon Fiber</option>
+                                <option value="Impact-Resistant Plastics" align="center">Impact-Resistant Plastics</option>
+                                <option value="Hard-Shelled Materials" align="center">Hard-Shelled Materials</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="riding_pants_fields" class="product-fields" style="display:none;">
+                    <h4>👖 Riding Pants Details</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-font-awesome"></i> Type:</label>
+                            <select class="form-control" name="pants_type">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Winter" align="center">Winter</option>
+                                <option value="Adventure" align="center">Adventure</option>
+                                <option value="Racing" align="center">Racing</option>
+                                <option value="Off-Road" align="center">Off-Road</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-ruler"></i> Size:</label>
+                            <select class="form-control" name="pants_size">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="S" align="center">S</option>
+                                <option value="M" align="center">M</option>
+                                <option value="L" align="center">L</option>
+                                <option value="XL" align="center">XL</option>
+                                <option value="XXL" align="center">XXL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-eye-dropper"></i> Color:</label>
+                            <input type="text" name="pants_color" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-layer-group"></i> Material:</label>
+                            <select class="form-control" name="pants_material">
+                                <option align="center">----- Select Type -----</option>
+                                <option value="Leather" align="center">Leather</option>
+                                <option value="Textile" align="center">Textile</option>
+                                <option value="Mesh" align="center">Mesh</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label"><i class="fa-solid fa-certificate"></i> Certifications:</label>
+                            <input type="text" name="pants_certifications" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Reflective Elements:</label>
+                            <select class="form-control" name="pants_Reflective">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Ventilation System:</label>
+                            <select class="form-control" name="pants_ventilation">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Padding Protection:</label>
+                            <select class="form-control" name="pants_padding">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label"><i class="fa-solid fa-droplet-slash"></i> Waterproofing:</label>
+                            <select class="form-control" name="pants_waterproofing">
+                                <option align="center">----- Select Size -----</option>
+                                <option value="True" align="center">YES</option>
+                                <option value="False" align="center">NO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riding Pants Fields -->
+                <div class="col-12 text-center mt-3">
+                    <br>
+                    <input type="submit" class="btn btn-custom" value="ADD PRODUCT">
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

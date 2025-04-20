@@ -1,0 +1,132 @@
+{% extends 'Base.html' %}
+
+{% load static %}
+{% block container %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <script>
+        function increase(row) {
+            var q = parseInt(row.querySelector(".quantity").textContent);
+            var price = parseInt(row.querySelector(".price").textContent);
+            var pid = parseInt(row.querySelector(".pid").textContent);
+
+            q++;
+            var tprice = price * q;
+            row.querySelector(".quantity").innerHTML = q;
+            row.querySelector(".totalprice").innerHTML = tprice;
+            window.location.replace('/updateprice/' + pid + '/' + q + '/')
+        }
+
+        function decrease(row) {
+            var q = parseInt(row.querySelector(".quantity").textContent);
+            if (q > 1) { // Prevent quantity from going below 1
+                var price = parseInt(row.querySelector(".price").textContent);
+                var pid = parseInt(row.querySelector(".pid").textContent);
+
+                q--;
+                var tprice = price * q;
+                row.querySelector(".quantity").innerHTML = q;
+                row.querySelector(".totalprice").innerHTML = tprice;
+
+                window.location.replace('/updateprice/' + pid + '/' + q + '/')
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <header class="text-center p-4 bg-dark">
+        <h1>Your Cart</h1>
+    </header>
+    <section class="container cart-container">
+        <div class="text-center mt-4">
+            <a href="{% url 'confirmorder' total_price %}"><button class="btn btn-custom"><i class="fa-solid fa-cart-shopping"></i> Proceed to Checkout 
+                <b class="totalprice">( <i class="fa-solid fa-indian-rupee-sign"></i> {{ total_price }} )</b></button></a>
+        </div>
+        {% for item in cart_items %}<br>
+        <div class="cartprod col-md-12">
+                <div class="cart-item d-flex align-items-center p-3 rounded">
+                    <div class="cart-item-img me-3">
+                        {% if item.helmet and item.helmet.image %}
+                        <img src="{{ item.helmet.image.url }}" class="img-fluid rounded" alt="Helmet">
+                        {% elif item.jacket and item.jacket.image %}
+                        <img src="{{ item.jacket.image.url }}" class="img-fluid rounded" alt="Jacket">
+                        {% elif item.gloves and item.gloves.image %}
+                        <img src="{{ item.gloves.image.url }}" class="img-fluid rounded" alt="Gloves">
+                        {% elif item.boots and item.boots.image %}
+                        <img src="{{ item.boots.image.url }}" class="img-fluid rounded" alt="Boots">
+                        {% elif item.kneeguard and item.kneeguard.image %}
+                        <img src="{{ item.kneeguard.image.url }}" class="img-fluid rounded" alt="Knee Guard">
+                        {% elif item.ridingPants and item.ridingPants.image %}
+                        <img src="{{ item.ridingPants.image.url }}" class="img-fluid rounded" alt="Riding Pants">
+                        {% endif %}
+                        <p hidden class="pid">
+                            {{ item.id }}
+                        </p>
+                    </div>
+                    <div class="cart-item-details flex-grow-1">
+                        <h3>
+                            {% if item.helmet %}
+                            {{ item.helmet.name }}
+                            {% elif item.jacket %}
+                            {{ item.jacket.name }}
+                            {% elif item.gloves %}
+                            {{ item.gloves.name }}
+                            {% elif item.boots %}
+                            {{ item.boots.name }}
+                            {% elif item.kneeguard %}
+                            {{ item.kneeguard.name }}
+                            {% elif item.ridingPants %}
+                            {{ item.ridingPants.name }}
+                            {% endif %}
+                        </h3>
+                        <p class="price">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                            {% if item.helmet %}
+                            {{ item.helmet.price }}
+                            {% elif item.jacket %}
+                            {{ item.jacket.price }}
+                            {% elif item.gloves %}
+                            {{ item.gloves.price }}
+                            {% elif item.boots %}
+                            {{ item.boots.price }}
+                            {% elif item.kneeguard %}
+                            {{ item.kneeguard.price }}
+                            {% elif item.ridingPants %}
+                            {{ item.ridingPants.price }}
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-custom mx-2" onclick="decrease(this.closest('.cartprod'))"><i
+                                class="fa-solid fa-minus"></i></button>
+                        <h3 class="quantity mx-2">{{ item.quantity }}</h3>
+                        <button class="btn btn-custom mx-2" onclick="increase(this.closest('.cartprod'))"><i
+                                class="fa-solid fa-plus"></i></button>
+                        <form method="POST" action="{% url 'removefromcart' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-custom col-sm-10"><i class="fas fa-trash"></i></button>
+                        </form>
+                        <div class="text-center" hidden>
+                            <p>
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+                                <b class="totalprice">{{ total_price }}</b>
+                            </p>
+                        </div>
+                        <br>
+                    </div>
+            </div>
+            {% empty %}
+            <p class="text-center">Your cart is empty.</p>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'confirmorder' total_price %}"><button class="btn btn-custom"><i class="fa-solid fa-cart-shopping"></i> Proceed to Checkout 
+                <b class="totalprice">( <i class="fa-solid fa-indian-rupee-sign"></i> {{ total_price }} )</b></button></a>
+        </div>
+    </section>
+</body>
+{% endblock container %}
