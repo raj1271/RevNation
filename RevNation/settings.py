@@ -22,15 +22,7 @@ Template=os.path.join(BASE_DIR,'template')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-a=qi*%c9zf=u-dfalgm5r&$le@=r#^d=fhs5xn-^nh=$sn9v(j"
 
-RAZORPAY_KEY_ID='rzp_test_WxqVYc8Qj2pdwX'
-RAZORPAY_KEY_SECRET='AsX4LTEO8B9mjQ3p08BJvteB'
 
-MAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_USE_TLS=True
-EMAIL_PORT=587
-EMAIL_HOST_USER='raj.pawar2821@gmail.com'
-EMAIL_HOST_PASSWORD='qkmg wxnr orcn dvhs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
