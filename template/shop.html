@@ -5,32 +5,47 @@
 
 <div class="container shop-container">
     <br><br>
-    <h2>Find Your Perfect Gear</h2><br>
-        <div class="category-buttons">
-            <button class="btn btn-custom" onclick="filterProducts('helmet')"><i class="fas fa-hard-hat"></i> Helmet</button>
-            <button class="btn btn-custom" onclick="filterProducts('jacket')"><i class="fas fa-tshirt"></i> Jacket</button>
-            <button class="btn btn-custom" onclick="filterProducts('gloves')"><i class="fas fa-hands"></i> Gloves</button>
-            <button class="btn btn-custom" onclick="filterProducts('boots')"><i class="fas fa-shoe-prints"></i> Boots</button>
-            <button class="btn btn-custom" onclick="filterProducts('kneeguard')"><i class="fas fa-shield-halved"></i> Knee Guard</button>
-            <button class="btn btn-custom" onclick="filterProducts('riding-pants')"><i class="fas fa-person-walking"></i> Riding Pants</button>
-            <button class="btn btn-custom" onclick="filterProducts('all')"><i class="fas fa-cubes"></i> Show All</button>
+    <div class="row align-items-center mb-4">
+        <div class="col-md-8 col-12">
+            <h2 class="fw-bold mb-3">Find Your Perfect Gear</h2>
         </div>
+        <div class="col-md-4 col-12">
+            <label class="form-label">Search</label>
+            <input type="text" oninput="search()" id="searchInput" class="form-control" placeholder="Search products...">
+        </div>
+    </div>
 
-<br>
-<div class="filter-bar">
-    <label for="sort-options">Sort by:</label>
-    <select id="sort-options" class="form-control">
-        <option value="default">Default</option>
-        <option value="price-low">Price: Low to High</option>
-        <option value="price-high">Price: High to Low</option>
-        <option value="name-asc">Name: A-Z</option>
-        <option value="name-desc">Name: Z-A</option>
-    </select>
-</div>
+    <!-- Filter and Sort -->
+    <div class="row gy-3 mb-5">
+        <div class="col-md-6 col-12">
+            <h5>Filter:</h5>
+            <select id="category-dropdown" class="form-select">
+                <option value="all">Show All</option>
+                <option value="helmet">Helmet</option>
+                <option value="jacket">Jacket</option>
+                <option value="gloves">Gloves</option>
+                <option value="boots">Boots</option>
+                <option value="kneeguard">Knee Guard</option>
+                <option value="riding-pants">Riding Pants</option>
+            </select>
+        </div>
+        <div class="col-md-6 col-12">
+            <h5>Sort by:</h5>
+            <select id="sort-options" class="form-select">
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name-asc">Name: A-Z</option>
+                <option value="name-desc">Name: Z-A</option>
+            </select>
+        </div>
+    </div>
+
     <br>
+    <p id="noResults" style="display:none; color: red; margin-top: 10px;">No results found.</p>
     <div class="row g-5" id="product-list">
         {% for i in helmets %}
-        <div class="col-md-4 col-sm-4 product-card" data-category="helmet" data-name="{{ i.name }}"
+        <div class="col-md-4 col-sm-4 product-card item" data-category="helmet" data-name="{{ i.name }}"
             data-price="{{ i.price }}">
             <div class="product">
                 <h2>{{ i.brand }}</h2>
@@ -39,18 +54,20 @@
                 <p>MRP Rs: {{ i.price }}</p>
 
                 <div class="col-sm-12">
-                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    <a href="{% url 'fullProduct' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
                     &nbsp;
                     {% if request.session.user_emailId is not None %}
-                    <a href="{% url 'addtocart' category='helmet' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                    <a href="{% url 'addtocart' category='helmet' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
                             CART</button></a>
-                            {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
         {% for i in jackets %}
-        <div class="col-md-4 col-sm-4 product-card" data-category="jacket" data-name="{{ i.name }}"
+        <div class="col-md-4 col-sm-4 product-card item" data-category="jacket" data-name="{{ i.name }}"
             data-price="{{ i.price }}">
             <div class="product">
                 <h2>{{ i.brand }}</h2>
@@ -58,18 +75,20 @@
                 <h4 class="col-sm-12">{{ i.name }}</h4>
                 <p>MRP Rs: {{ i.price }}</p>
                 <div class="col-sm-12">
-                    <a href="{% url 'fullProduct' category='jacket' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    <a href="{% url 'fullProduct' category='jacket' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
                     &nbsp;
                     {% if request.session.user_emailId is not None %}
-                    <a href="{% url 'addtocart' category='jacket' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                    <a href="{% url 'addtocart' category='jacket' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
                             CART</button></a>
-                            {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
         {% for i in gloves %}
-        <div class="col-md-4 col-sm-4 product-card" data-category="gloves" data-name="{{ i.name }}"
+        <div class="col-md-4 col-sm-4 product-card item" data-category="gloves" data-name="{{ i.name }}"
             data-price="{{ i.price }}">
             <div class="product">
                 <h2>{{ i.brand }}</h2>
@@ -77,18 +96,20 @@
                 <h4 class="col-sm-12">{{ i.name }}</h4>
                 <p>MRP Rs: {{ i.price }}</p>
                 <div class="col-sm-12">
-                    <a href="{% url 'fullProduct' category='gloves' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    <a href="{% url 'fullProduct' category='gloves' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
                     &nbsp;
                     {% if request.session.user_emailId is not None %}
-                    <a href="{% url 'addtocart' category='gloves' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                    <a href="{% url 'addtocart' category='gloves' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
                             CART</button></a>
-                            {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
         {% for i in boots %}
-        <div class="col-md-4 col-sm-4 product-card" data-category="boots" data-name="{{ i.name }}"
+        <div class="col-md-4 col-sm-4 product-card item" data-category="boots" data-name="{{ i.name }}"
             data-price="{{ i.price }}">
             <div class="product">
                 <h2>{{ i.brand }}</h2>
@@ -96,18 +117,20 @@
                 <h4 class="col-sm-12">{{ i.name }}</h4>
                 <p>MRP Rs: {{ i.price }}</p>
                 <div class="col-sm-12">
-                    <a href="{% url 'fullProduct' category='boots' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    <a href="{% url 'fullProduct' category='boots' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
                     &nbsp;
                     {% if request.session.user_emailId is not None %}
-                    <a href="{% url 'addtocart' category='boots' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                    <a href="{% url 'addtocart' category='boots' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
                             CART</button></a>
-                            {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
         {% for i in kneeguard %}
-        <div class="col-md-4 col-sm-4 product-card" data-category="kneeguard" data-name="{{ i.name }}"
+        <div class="col-md-4 col-sm-4 product-card item" data-category="kneeguard" data-name="{{ i.name }}"
             data-price="{{ i.price }}">
             <div class="product">
                 <h2>{{ i.brand }}</h2>
@@ -115,18 +138,20 @@
                 <h4 class="col-sm-12">{{ i.name }}</h4>
                 <p>MRP Rs: {{ i.price }}</p>
                 <div class="col-sm-12">
-                    <a href="{% url 'fullProduct' category='kneeguard' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    <a href="{% url 'fullProduct' category='kneeguard' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
                     &nbsp;
                     {% if request.session.user_emailId is not None %}
-                    <a href="{% url 'addtocart' category='kneeguard' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                    <a href="{% url 'addtocart' category='kneeguard' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
                             CART</button></a>
-                            {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
         {% for i in ridingpant %}
-        <div class="col-md-4 col-sm-4 product-card" data-category="riding-pants" data-name="{{ i.name }}"
+        <div class="col-md-4 col-sm-4 product-card item" data-category="riding-pants" data-name="{{ i.name }}"
             data-price="{{ i.price }}">
             <div class="product">
                 <h2>{{ i.brand }}</h2>
@@ -134,12 +159,14 @@
                 <h4 class="col-sm-12">{{ i.name }}</h4>
                 <p>MRP Rs: {{ i.price }}</p>
                 <div class="col-sm-12">
-                    <a href="{% url 'fullProduct' category='riding-pants' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
+                    <a href="{% url 'fullProduct' category='riding-pants' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-eye"></i> View</button></a>
                     &nbsp;
                     {% if request.session.user_emailId is not None %}
-                    <a href="{% url 'addtocart' category='riding-pants' product_id=i.id %}"><button class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
+                    <a href="{% url 'addtocart' category='riding-pants' product_id=i.id %}"><button
+                            class="btn btn-custom col-sm-4"><i class="fa-solid fa-cart-plus"></i>
                             CART</button></a>
-                            {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>

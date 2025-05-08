@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let items = document.querySelectorAll(".pd-item");
     let observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -44,18 +44,23 @@ function checkAnswer(answer) {
 
 // Shop
 
+document.getElementById('category-dropdown').addEventListener('change', function () {
+    const category = this.value;
+    filterProducts(category);
+});
+
 function filterProducts(category) {
-    let products = document.querySelectorAll('.product-card');
-    products.forEach(product => {
-        if (product.getAttribute('data-category') === category || category === 'all') {
-            product.style.display = 'block';
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
         } else {
-            product.style.display = 'none';
+            card.style.display = 'none';
         }
     });
 }
 
-document.getElementById("sort-options").addEventListener("change", function() {
+document.getElementById("sort-options").addEventListener("change", function () {
     let products = Array.from(document.querySelectorAll(".product-card"));
     let sortType = this.value;
 
@@ -73,3 +78,29 @@ document.getElementById("sort-options").addEventListener("change", function() {
     container.innerHTML = ""; // Clear the existing products
     products.forEach(product => container.appendChild(product)); // Append sorted products
 });
+
+
+function search() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const items = document.querySelectorAll('.item');
+    const noResults = document.getElementById('noResults');
+
+    let found = false;
+
+    items.forEach(item => {
+        const name = item.getAttribute('data-name').toLowerCase();
+        if (name.includes(input)) {
+            item.style.display = 'block';
+            found = true;
+        } else {
+            item.style.display = 'none';
+        }
+    });
+
+    // Show "No results found" if nothing matches
+    if (!found) {
+        noResults.style.display = 'block';
+    } else {
+        noResults.style.display = 'none';
+    }
+}

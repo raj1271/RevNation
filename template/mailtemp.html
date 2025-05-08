@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmation</title>
+</head>
+<body style="background-color:#1a1a1a; color:white; font-family:Arial, sans-serif; padding:20px;">
+
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width:800px; margin:auto; background-color:#2c2c2c; padding:30px; border-radius:10px; box-shadow:0 0 15px #fff;">
+    <tr>
+      <td align="center" style="font-size:40px; color:green;">✔</td>
+    </tr>
+    <tr>
+      <td align="center" style="font-size:24px; font-weight:bold;">Order Placed Successfully!</td>
+    </tr>
+    <tr>
+      <td align="center" style="font-size:16px; padding:10px 0 20px;">Thank you for your purchase. Your order details are below:</td>
+    </tr>
+
+    <!-- Customer & Order Info -->
+    <tr>
+      <td>
+        <table width="100%" cellpadding="10" cellspacing="0" style="color:white;">
+          <tr>
+            <td width="50%" valign="top">
+              <p><strong>Name:</strong> {{ user.FirstName }} {{ user.LastName }}</p>
+              <p><strong>Address:</strong><br>{{ user.StreetAddress }}, {{ user.City }}, {{ user.State }}, {{ user.Country }}, {{ user.PinCode }}</p>
+              <p><strong>Order ID:</strong> #{{ oid }}</p>
+            </td>
+            <td width="50%" valign="top">
+              <p><strong>Payment ID:</strong> #{{ pid }}</p>
+              <p><strong>Total Amount:</strong> ₹{{ tbill }}</p>
+              <p><strong>Total Items:</strong> {{ total_items }}</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td><hr style="border:1px solid #444;"></td></tr>
+
+    <!-- Product Items -->
+    {% for item in cart_items %}
+    <tr>
+      <td>
+        <table width="100%" cellpadding="10" cellspacing="0" style="color:white;">
+          <tr>
+            <td width="120" valign="top">
+              {% if item.helmet %}
+              <img src="/{{ item.helmet.image }}" alt="{{ item.helmet.name }}" width="100" style="border-radius:8px;">
+              {% elif item.jacket %}
+              <img src="{{ item.jacket.image.url }}" alt="{{ item.jacket.name }}" width="100" style="border-radius:8px;">
+              {% elif item.gloves %}
+              <img src="{{ item.gloves.image.url }}" alt="{{ item.gloves.name }}" width="100" style="border-radius:8px;">
+              {% elif item.boots %}
+              <img src="{{ item.boots.image.url }}" alt="{{ item.boots.name }}" width="100" style="border-radius:8px;">
+              {% elif item.kneeguard %}
+              <img src="{{ item.kneeguard.image.url }}" alt="{{ item.kneeguard.name }}" width="100" style="border-radius:8px;">
+              {% elif item.ridingPants %}
+              <img src="{{ item.ridingPants.image.url }}" alt="{{ item.ridingPants.name }}" width="100" style="border-radius:8px;">
+              {% endif %}
+            </td>
+            <td valign="top">
+              <p><strong>Product Name:</strong>
+              {% if item.helmet %} {{ item.helmet.name }}
+              {% elif item.jacket %} {{ item.jacket.name }}
+              {% elif item.gloves %} {{ item.gloves.name }}
+              {% elif item.boots %} {{ item.boots.name }}
+              {% elif item.kneeguard %} {{ item.kneeguard.name }}
+              {% elif item.ridingPants %} {{ item.ridingPants.name }}
+              {% endif %}
+              </p>
+              <p><strong>Size:</strong>
+              {% if item.helmet %} {{ item.helmet.size }}
+              {% elif item.jacket %} {{ item.jacket.size }}
+              {% elif item.gloves %} {{ item.gloves.size }}
+              {% elif item.boots %} {{ item.boots.size }}
+              {% elif item.kneeguard %} {{ item.kneeguard.size }}
+              {% elif item.ridingPants %} {{ item.ridingPants.size }}
+              {% endif %}
+              </p>
+              <p><strong>Color:</strong>
+              {% if item.helmet %} {{ item.helmet.color }}
+              {% elif item.jacket %} {{ item.jacket.color }}
+              {% elif item.gloves %} {{ item.gloves.color }}
+              {% elif item.boots %} {{ item.boots.color }}
+              {% elif item.kneeguard %} {{ item.kneeguard.color }}
+              {% elif item.ridingPants %} {{ item.ridingPants.color }}
+              {% endif %}
+              </p>
+              <p><strong>Price:</strong> ₹
+              {% if item.helmet %} {{ item.helmet.price }}
+              {% elif item.jacket %} {{ item.jacket.price }}
+              {% elif item.gloves %} {{ item.gloves.price }}
+              {% elif item.boots %} {{ item.boots.price }}
+              {% elif item.kneeguard %} {{ item.kneeguard.price }}
+              {% elif item.ridingPants %} {{ item.ridingPants.price }}
+              {% endif %}
+              </p>
+              <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+            </td>
+          </tr>
+        </table>
+        <hr style="border:1px solid #444;">
+      </td>
+    </tr>
+    {% endfor %}
+
+    <!-- Thank you message -->
+    <tr>
+      <td align="center" style="color:#bbb; padding-top:10px;">We appreciate your business and look forward to serving you again!</td>
+    </tr>
+  </table>
+
+</body>
+</html>

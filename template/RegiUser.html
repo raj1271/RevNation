@@ -65,42 +65,46 @@
         <div class="register-container">
             <img src="{% static 'logo.png' %}" alt="Bike Safety Gear Logo" class="logo">
             <h2 class="text-center">Register</h2>
+            {% if flag == 1 %}
+            <p class="text-danger">* Mail Id or Phone Number Already existed * <br>
+                Please <a href="{% url 'login' %}"> Click here to login</a></p>
+            {% endif %}
             <form action="{% url 'regiuser' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="fname" requiwhite>
+                        <input type="text" class="form-control" name="fname" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" name="lname" requiwhite>
+                        <input type="text" class="form-control" name="lname" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Email ID</label>
-                        <input type="email" class="form-control" name="emailid" requiwhite>
+                        <input type="email" class="form-control" name="emailid" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" name="phno" requiwhite>
+                        <input type="tel" class="form-control"  name="phno" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" requiwhite>
+                        <input type="password" class="form-control" name="password" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" name="dob" requiwhite>
+                        <input type="date" class="form-control" name="dob" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Gender</label>
-                        <select class="form-control" name="gender" requiwhite>
+                        <select class="form-control" name="gender" required>
                             <option value="" align="center">-----Select Gender-----</option>
                             <option value="male" align="center">-----Male-----</option>
                             <option value="female" align="center">-----Female-----</option>

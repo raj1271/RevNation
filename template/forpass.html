@@ -68,8 +68,7 @@
         <h2>Forgot Password</h2>
         <p>Enter your registewhite email to receive an OTP.</p>
         <input type="text" class="form-control mb-3" name="mail">
-        <a href="{% url 'home' mail=mail.value %}"><button class="btn btn-custom w-100" onclick="showOTPInput()">Send OTP</button></a>
-        <br><br>
+        <button class="btn btn-custom w-100" onclick="showOTPInput()">Send OTP</button>
         <div id="otpInput">
             <label>Enter OTP</label>
             <input type="text" class="form-control mt-3" placeholder="Enter OTP">

@@ -4,14 +4,14 @@ import razorpay
 from django.urls import reverse
 from django.db.models import Prefetch
 from datetime import date
-from django.db.models import Sum
+from django.db.models import Sum,Q
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.http import Http404, HttpResponse
 from django.contrib.auth.hashers import make_password,check_password
-from .models import UserModel,AdminModel,Helmet,Jacket,Gloves,Boots,Kneeguard,RidingPants,FAQModel,Cart,Order,Payment,OrderItem
+from .models import Review, UserModel,AdminModel,Helmet,Jacket,Gloves,Boots,Kneeguard,RidingPants,FAQModel,Cart,Order,Payment,OrderItem
 
 PRODUCT_MODELS = {
     'helmet': Helmet,
@@ -46,14 +46,64 @@ def shop(request):
 def fullProduct(request, category, product_id):
     model = PRODUCT_MODELS.get(category)
     product = get_object_or_404(model, id=product_id)
-    context = {
-        'product': product,
-        'category': category
-    }
-    if request.method == "POST":
-        pass
+    user_email = request.session.get('user_emailId')
+    reviews = Review.objects.filter(**{category: product})
+    # review
+    if request.method == "POST" and user_email:
+        user = get_object_or_404(UserModel, EmailId=user_email)
+        rating = request.POST.get('rating')
+        comment = request.POST.get('review')
+
+        review_data = {
+            'user': user,
+            'rating': rating,
+            'comment': comment,
+            category: product
+        }
+        Review.objects.create(**review_data)
+        return redirect('fullProduct', category=category, product_id=product.id)
+
     else:
-        return render(request, 'fullProduct.html', context)    
+        context = {
+        'product': product,
+        'category': category,
+        'reviews': reviews
+    }
+        return render(request, 'fullProduct.html', context) 
+
+# Delete Review
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    user_email = request.session.get('user_emailId')
+    if user_email and review.user.EmailId == user_email:
+        flag='Review Deleted'
+        direct=reverse('shop')
+        review.delete()
+
+        # Redirect to the correct product detail page
+        return render(request, 'success.html', {'data': {'flag': flag , 'direct':direct}})
+
+    return redirect('shop')  
+
+# Review
+def ShowReview(request):
+    query = request.GET.get('q')
+    reviews = Review.objects.select_related(
+        'user', 'helmet', 'jacket', 'gloves', 'boots', 'kneeguard', 'ridingPants'
+    ).order_by('-created_at')
+    if query:
+        reviews = reviews.filter(
+            Q(user__FirstName__icontains=query) |
+            Q(user__LastName__icontains=query) |
+            Q(helmet__name__icontains=query) |
+            Q(jacket__name__icontains=query) |
+            Q(gloves__name__icontains=query) |
+            Q(boots__name__icontains=query) |
+            Q(kneeguard__name__icontains=query) |
+            Q(ridingPants__name__icontains=query)
+        )
+
+    return render(request, 'review.html', {'reviews': reviews, 'query': query})
 
 # manageproduct View
 def manageproduct(request):
@@ -204,7 +254,7 @@ def paymentsuccess(request,totalprice):
         'total_items': total_items
     }
     
-    html_content = render_to_string('orderplaced.html', email_context)  # Render HTML email
+    html_content = render_to_string('mailtemp.html', email_context)  # Render HTML email
     text_content = strip_tags(html_content)  # Fallback text email content
 
     from_email = settings.EMAIL_HOST_USER
@@ -278,28 +328,50 @@ def Faq(request):
 
 
 # Add User
-def RegiUser(request):
-    if request.method=='POST':
-        flag='Account Created'
-        direct=reverse('login')
-        fname=request.POST['fname']
-        lname=request.POST['lname']
-        emailid=request.POST['emailid']
-        phno=request.POST['phno']
-        password=request.POST['password']
-        epass=make_password(password)
-        dob=request.POST['dob']
-        gender=request.POST['gender']
-        StreetAddress=request.POST['StreetAddress']
-        City=request.POST['City']
-        State=request.POST['State']
-        Country=request.POST['Country']
-        PinCode=request.POST['PinCode']
-        data=UserModel.objects.create(FirstName=fname,LastName=lname,EmailId=emailid,PhoneNo=phno,Password=epass,DOB=dob,Gender=gender,StreetAddress=StreetAddress,City=City,State=State,Country=Country,PinCode=PinCode)
-        data.save()
-        return render(request, 'success.html', {'data': {'flag': flag , 'direct':direct}})
+def RegiUser (request):
+    if request.method == 'POST':
+        flag = "Account Created"
+        direct = reverse('login')
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        emailid = request.POST['emailid']
+        phno = request.POST['phno']
+        password = request.POST['password']
+        epass = make_password(password)
+        dob = request.POST['dob']
+        gender = request.POST['gender']
+        StreetAddress = request.POST['StreetAddress']
+        City = request.POST['City']
+        State = request.POST['State']
+        Country = request.POST['Country']
+        PinCode = request.POST['PinCode']
+        
+        check1 = UserModel.objects.filter(EmailId=emailid ).first()
+        check2 = UserModel.objects.filter(PhoneNo=phno ).first()
+        if check1 or check2:
+            flag1 = 1  # User already registered
+            return render(request, 'RegiUser.html', {'flag': flag1})
+        else:
+            data = UserModel.objects.create(
+                FirstName=fname,
+                LastName=lname,
+                EmailId=emailid,
+                PhoneNo=phno,
+                Password=epass,
+                DOB=dob,
+                Gender=gender,
+                StreetAddress=StreetAddress,
+                City=City,
+                State=State,
+                Country=Country,
+                PinCode=PinCode
+            )
+            data.save()
+        
+        return render(request, 'success.html', {'data': {'flag': flag, 'direct': direct}})
     else:
-        return render(request,'RegiUser.html')
+        return render(request, 'RegiUser.html')
+
     
 
 

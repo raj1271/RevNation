@@ -1,0 +1,55 @@
+{% extends 'Base.html' %}
+{% load static %}
+{% block container %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4"><i class="fas fa-star-half-alt"></i> All Product Reviews</h2>
+    <div class="container my-4">
+        <form method="get" class="d-flex justify-content-center mb-4">
+            <input type="text" name="q" class="form-control w-50 me-2" placeholder="Search by product or user name..." value="{{ query|default:'' }}">
+            <button type="submit" class="btn btn-danger"><i class="fas fa-search"></i> Search</button>
+        </form>
+    
+        <p class="text-light text-center">{{ reviews|length }} review{{ reviews|length|pluralize }}</p>
+    </div>
+    {% for review in reviews %}
+    <div class="review-card mb-4 p-3 rounded" style="background-color: #1a1a1a; border-left: 2px solid white;">
+        <div class="row align-items-center">
+            <div class="col-md-2">
+                {% if review.helmet %}
+                    <img src="{{ review.helmet.image.url }}" alt="{{ review.helmet.name }}" class="img-fluid rounded">
+                {% elif review.jacket %}
+                    <img src="{{ review.jacket.image.url }}" alt="{{ review.jacket.name }}" class="img-fluid rounded">
+                {% elif review.gloves %}
+                    <img src="{{ review.gloves.image.url }}" alt="{{ review.gloves.name }}" class="img-fluid rounded">
+                {% elif review.boots %}
+                    <img src="{{ review.boots.image.url }}" alt="{{ review.boots.name }}" class="img-fluid rounded">
+                {% elif review.kneeguard %}
+                    <img src="{{ review.kneeguard.image.url }}" alt="{{ review.kneeguard.name }}" class="img-fluid rounded">
+                {% elif review.ridingPants %}
+                    <img src="{{ review.ridingPants.image.url }}" alt="{{ review.ridingPants.name }}" class="img-fluid rounded">
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                <h5 class=" mb-1">
+                    {% if review.helmet %}{{ review.helmet.name }}
+                    {% elif review.jacket %}{{ review.jacket.name }}
+                    {% elif review.gloves %}{{ review.gloves.name }}
+                    {% elif review.boots %}{{ review.boots.name }}
+                    {% elif review.kneeguard %}{{ review.kneeguard.name }}
+                    {% elif review.ridingPants %}{{ review.ridingPants.name }}
+                    {% endif %}
+                </h5>
+                <p class="text-white mb-0"><i class="fas fa-user"></i> {{ review.user.FirstName }} {{ review.user.LastName }}</p>
+                <p class="text-warning mb-1">
+                    Rating ({{ review.rating }}/5)
+                </p>
+                <p class="text-light"><i class="fas fa-comment"></i> {{ review.comment }}</p>
+                <p class="text-success small"><i class="far fa-clock"></i> {{ review.created_at|date:"M d, Y - h:i A" }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-light">No reviews available yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -31,8 +31,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'faq' %}">FAQ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'ShowReview' %}">Reviews</a></li>
                         {% endif %}
                         {% if request.session.user_emailId is not None and request.session.adminemail is None %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
@@ -40,18 +39,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">Cart</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'faq' %}">FAQ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
-                        {% endif %}
-                        {% if request.session.adminemail is not None and request.session.user_emailId is None %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'shop' %}">Shop</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'addproduct' %}">add Product</a></li>
-                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">LogOut</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'faq' %}">FAQ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'ShowReview' %}">Reviews</a></li>
                         {% endif %}
                     </ul>
                 </nav>
